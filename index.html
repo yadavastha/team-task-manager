@@ -7,7 +7,7 @@
   <h1>Welcome to Team Task Manager</h1>
 
   <div id="login">
-    <form onsubmit="loginUser(email.value, password.value); return false;">
+    <form id="loginForm">
       <input type="email" id="email" placeholder="Email" required>
       <input type="password" id="password" placeholder="Password" required>
       <button type="submit">Login</button>
@@ -16,14 +16,28 @@
 
   <div id="projects"></div>
 
-  <script src="script.js"></script>
   <script>
-    // Example inline call
-    fetch("https://team-task-manager-production-8fb2.up.railway.app/projects")
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("projects").innerText = JSON.stringify(data);
+    async function loginUser(email, password) {
+      const res = await fetch("https://team-task-manager-production-8fb2.up.railway.app/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
       });
+      const data = await res.json();
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        window.location.href = "dashboard.html"; // redirect after login
+      } else {
+        alert("Login failed: " + (data.error || "Unknown error"));
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      loginUser(email, password);
+    });
   </script>
 </body>
 </html>
