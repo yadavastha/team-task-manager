@@ -5,6 +5,7 @@
 </head>
 <body>
   <h1>Welcome to Team Task Manager</h1>
+
   <div id="login">
     <form onsubmit="loginUser(email.value, password.value); return false;">
       <input type="email" id="email" placeholder="Email" required>
@@ -13,12 +14,16 @@
     </form>
   </div>
 
+  <div id="projects"></div>
+
   <script src="script.js"></script>
   <script>
     // Example inline call
     fetch("https://team-task-manager-production-8fb2.up.railway.app/projects")
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => {
+        document.getElementById("projects").innerText = JSON.stringify(data);
+      });
   </script>
 </body>
 </html>
