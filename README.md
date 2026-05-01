@@ -27,6 +27,5 @@ I built this Team Task Manager for my full-stack assignment. The goal was to cre
 -Member: user member, password 123
 
 ## Submission Links
--Live App: https://team-task-manager-production-17f2.up.railway.app
+-Live App: (https://team-task-manager-production-8fb2.up.railway.app)
 -GitHub Repository: https://github.com/yadavastha/team-task-manager
--Demo Video: [Insert your video link here]
