@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - Team Task Manager</title>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  <div id="tasks"></div>
+
+  <script src="script.js"></script>
+  <script>
+    async function loadDashboard() {
+      const tasks = await getDashboardTasks();
+      const container = document.getElementById("tasks");
+      if (tasks.length === 0) {
+        container.innerText = "No tasks assigned.";
+      } else {
+        container.innerHTML = tasks.map(t => `<p>${t.title} - ${t.status}</p>`).join("");
+      }
+    }
+    loadDashboard();
+  </script>
+</body>
+</html>
