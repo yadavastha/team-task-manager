@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     background-color: #f4f7f6;
     display: flex;
     justify-content: center;
@@ -18,13 +18,8 @@ body {
     text-align: center;
 }
 
-/* Ensure the app is hidden by default for the demo */
 #app-container {
     display: none;
-}
-
-h1, h2, h3 {
-    color: #333;
 }
 
 input {
@@ -47,10 +42,6 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
-    background-color: #218838;
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -63,19 +54,12 @@ header button {
     background-color: #dc3545;
 }
 
-#admin-controls {
-    border-bottom: 2px solid #eee;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-}
-
 .task-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #eee;
-    text-align: left;
 }
 
 .task-item.completed span {
@@ -86,6 +70,4 @@ header button {
 .task-item button {
     width: auto;
     padding: 5px 10px;
-    font-size: 12px;
-    margin-left: 5px;
 }
