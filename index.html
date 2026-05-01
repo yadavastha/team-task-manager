@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CampusDesk - Galgotias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>CampusDesk</h1>
+        <span>Galgotias University</span>
+    </header>
+    <div class="tagline">Hey Astha, stay on top of your day!</div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-section="tasks">Tasks</button>
+        <button class="tab-btn" data-section="timer">Timer</button>
+        <button class="tab-btn" data-section="schedule">Schedule</button>
+        <button class="tab-btn" data-section="notes">Notes</button>
+    </div>
+
+    <div id="tasks" class="section active">
+        <div class="task-input-row">
+            <input type="text" id="taskInput" placeholder="Add a new assignment or task..." />
+            <select id="taskSubject">
+                <option value="General">General</option>
+                <option value="DSA">DSA</option>
+                <option value="OS">OS</option>
+                <option value="DBMS">DBMS</option>
+                <option value="CN">CN</option>
+                <option value="Maths">Maths</option>
+                <option value="Project">Project</option>
+            </select>
+            <button class="btn-blue" id="addTaskBtn">+ Add</button>
+        </div>
+        <ul class="task-list" id="taskList"></ul>
+        <p class="empty-msg" id="taskEmpty">No tasks yet. Add something above!</p>
+        <button class="btn-blue" id="exportBtn" style="background: #059669; margin-top: 20px;">Backup Data (JSON)</button>
+    </div>
+
+    <div id="timer" class="section">
+        <div class="timer-wrap">
+            <div class="timer-mode-btns">
+                <button class="mode-btn active" data-mode="focus">Focus (25m)</button>
+                <button class="mode-btn" data-mode="short">Short Break (5m)</button>
+                <button class="mode-btn" data-mode="long">Long Break (15m)</button>
+            </div>
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            <div class="timer-label" id="timerLabel">Ready to focus?</div>
+            <div class="pomo-dots" id="pomoDots">
+                <div class="pomo-dot"></div>
+                <div class="pomo-dot"></div>
+                <div class="pomo-dot"></div>
+                <div class="pomo-dot"></div>
+            </div>
+            <div class="timer-btns">
+                <button id="startBtn">Start</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+            <div class="session-count" id="sessionCount">Sessions today: 0</div>
+        </div>
+    </div>
+
+    <div id="schedule" class="section">
+        <div class="schedule-grid">
+            <table id="schedTable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                </thead>
+                <tbody id="schedBody"></tbody>
+            </table>
+        </div>
+        <p class="sched-hint">Click any cell to add/edit your class</p>
+    </div>
+
+    <div id="notes" class="section">
+        <div class="notes-grid" id="notesGrid">
+            <p class="empty-msg" id="notesEmpty" style="display:none; grid-column: 1/-1;">No notes yet. Click the + button to start writing!</p>
+            <div class="add-note-btn" id="addNoteBtn">+</div>
+        </div>
+    </div>
+
+    <footer>
+        Built by Astha Yadav ; Galgotias University 
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
