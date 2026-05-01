@@ -1,4 +1,5 @@
 // server.js
+
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -11,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// PostgreSQL connection (Railway provides DATABASE_URL)
+// PostgreSQL connection
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
@@ -65,7 +66,7 @@ app.post("/auth/login", async (req, res) => {
   }
 });
 
-// Get projects (admin only)
+// Projects (admin only)
 app.get("/projects", authenticateToken, async (req, res) => {
   if (req.user.role !== "admin") return res.sendStatus(403);
   try {
@@ -77,7 +78,7 @@ app.get("/projects", authenticateToken, async (req, res) => {
   }
 });
 
-// Add task (admin only)
+// Tasks (admin only)
 app.post("/tasks", authenticateToken, async (req, res) => {
   if (req.user.role !== "admin") return res.sendStatus(403);
   const { title, description, projectId, assignedTo } = req.body;
@@ -93,24 +94,7 @@ app.post("/tasks", authenticateToken, async (req, res) => {
   }
 });
 
-// Update task status (member can update their own tasks)
-app.put("/tasks/:id/status", authenticateToken, async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
-  try {
-    const result = await pool.query(
-      "UPDATE tasks SET status=$1 WHERE id=$2 AND assigned_to=$3 RETURNING id",
-      [status, id, req.user.id]
-    );
-    if (result.rows.length === 0) return res.status(403).json({ error: "Not allowed" });
-    res.json({ taskId: result.rows[0].id, status });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to update task" });
-  }
-});
-
-// Dashboard (member sees their tasks)
+// Dashboard (member tasks)
 app.get("/dashboard", authenticateToken, async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM tasks WHERE assigned_to=$1", [req.user.id]);
