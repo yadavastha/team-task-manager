@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080'
+const API_URL = 'https://team-task-manager-production-8fb2.up.railway.app'
 let token = null
 let role = null
 
