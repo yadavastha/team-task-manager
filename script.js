@@ -69,7 +69,6 @@ document.getElementById('createProjectBtn').addEventListener('click', async () =
     body: JSON.stringify({ name, description })
   })
 })
-
 document.getElementById('createTaskBtn').addEventListener('click', async () => {
   const title = document.getElementById('taskTitle').value
   const description = document.getElementById('taskDesc').value
