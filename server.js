@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const DB_PATH = path.join(__dirname, 'db.json');
 
 app.use(cors());
@@ -46,5 +46,5 @@ app.delete('/api/tasks/:id', (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server on ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
