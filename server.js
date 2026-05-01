@@ -1,24 +1,45 @@
 const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
+const path = require('path');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('.'));
 
 const DB_FILE = './db.json';
 
-app.get('/api/data', (req, res) => {
-    if (!fs.existsSync(DB_FILE)) {
-        return res.json({ tasks: [], notes: [], schedData: {}, sessions: 0 });
-    }
+if (!fs.existsSync(DB_FILE)) {
+    fs.writeFileSync(DB_FILE, JSON.stringify({ 
+        users: [
+            { id: 1, username: "admin", password: "123", role: "Admin" },
+            { id: 2, username: "member", password: "123", role: "Member" }
+        ],
+        tasks: [] 
+    }));
+}
+
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
     const data = JSON.parse(fs.readFileSync(DB_FILE));
-    res.json(data);
+    const user = data.users.find(u => u.username === username && u.password === password);
+    if (user) res.json({ success: true, user });
+    else res.status(401).json({ success: false });
 });
 
-app.post('/api/save', (req, res) => {
-    fs.writeFileSync(DB_FILE, JSON.stringify(req.body, null, 2));
-    res.status(200).send({ message: "Data synced to server" });
+app.get('/api/tasks', (req, res) => {
+    const data = JSON.parse(fs.readFileSync(DB_FILE));
+    res.json(data.tasks);
 });
 
-app.listen(3000, () => console.log('Backend running on http://localhost:3000'));
+app.post('/api/tasks', (req, res) => {
+    const data = JSON.parse(fs.readFileSync(DB_FILE));
+    data.tasks = req.body;
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+    res.json({ success: true });
+});
+
+const PORT = process.env.PORT || 3000;
+    app.listen(PORT, '0.0.0.0', () => console.log(`Server on ${PORT}`));
